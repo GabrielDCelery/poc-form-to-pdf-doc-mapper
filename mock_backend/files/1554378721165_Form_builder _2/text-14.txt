@@ -1,0 +1,1 @@
+5.1. ADDING HEADINGS TO GROUPS Now that we have groups of fields we can label them appropriately. Let’s do that by  adding some headings. As you can see the logic is pretty similar to how we would configure our fields if we  wanted to inject related content. P a g e  | 14

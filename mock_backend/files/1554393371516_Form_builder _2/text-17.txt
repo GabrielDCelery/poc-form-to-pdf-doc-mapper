@@ -1,0 +1,1 @@
+7.0 PAGINATION An other really powerful feature of the form builder is to have the ability to split long  forms into several pages. After generating the groups adding pagination is very simple. IMPORTANT! When you enable pagination you have to include all the top-level groups in your  configuration when you label them. S S P a g e  | 17

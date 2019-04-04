@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 
-import pdfconfig from './pdfconfig.reducer';
-import ajax from './ajax.reducer';
+import uploadPdf from './uploadPdf.reducer';
+import getPdfList from './getPdfList.reducer';
+import removePdf from './removePdf.reducer';
 
 const combinedReducers = combineReducers({
-  pdfconfig: pdfconfig,
-  ajax: ajax
+  uploadPdf: uploadPdf,
+  getPdfList: getPdfList,
+  removePdf: removePdf
 });
 
 export default combinedReducers;

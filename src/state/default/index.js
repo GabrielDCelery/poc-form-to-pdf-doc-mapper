@@ -1,7 +1,7 @@
-import pdfconfig from './pdfconfig.default';
+import uploadPdf from './uploadPdf.default';
 
 const combinedDefaultState =  {
-  pdfconfig: pdfconfig
+  uploadPdf: uploadPdf
 };
 
 export default combinedDefaultState;

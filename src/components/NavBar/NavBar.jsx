@@ -8,10 +8,10 @@ export class NavBar extends Component {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to='/pdfconfig' className='nav-link'>Configure PDF</Link>
+              <Link to='/upload' className='nav-link'>Upload</Link>
             </li>
             <li className="nav-item">
-              <Link to='/pdfform' className='nav-link'>Configure PDF</Link>
+              <Link to='/configure' className='nav-link'>Configure</Link>
             </li>
           </ul>
         </div>

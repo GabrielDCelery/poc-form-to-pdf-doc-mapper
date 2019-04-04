@@ -1,0 +1,1 @@
+Also notice, that when you are defining multiple labels the data structure the form builder is expecting is a list of items (array). Now we got some of the labels changed. P a g e  | 6

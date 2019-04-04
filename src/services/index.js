@@ -1,5 +1,5 @@
-import pdfconfig from './pdfconfig';
+import pdf from './pdf';
 
 export {
-  pdfconfig
+  pdf
 }

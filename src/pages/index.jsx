@@ -1,2 +1,2 @@
-export * from './PDFConfig';
+export * from './PdfUpload';
 export * from './PDFForm';
