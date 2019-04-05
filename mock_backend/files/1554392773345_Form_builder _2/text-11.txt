@@ -1,1 +1,0 @@
-4.5 CHANING FIELD TYPE By default a dynamic form has a limited set of field types, but what if we need a multi-line textarea or a date picker for a field? First let’s add the changes. And below you can see how the end results look like. P a g e  | 11

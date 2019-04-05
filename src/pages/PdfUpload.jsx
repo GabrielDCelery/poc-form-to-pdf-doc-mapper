@@ -1,8 +1,11 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 import { uploadPdf, getPdfList, removePdf } from 'state/actions';
 import './PdfUpload.scss';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { withRouter } from 'react-router';
 
 class PdfUpload extends Component {
   constructor(props) {
@@ -13,10 +16,15 @@ class PdfUpload extends Component {
     };
     this.handleFile = this.handleFile.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.navigateToPath = this.navigateToPath.bind(this);
   }
 
   componentDidMount() {
     return this.props.onGetPdfList();
+  }
+
+  navigateToPath (_path, _state) {
+    this.props.history.push(_path, _state);
   }
 
   handleFile(event) {
@@ -71,11 +79,11 @@ class PdfUpload extends Component {
             <div className="card-footer text-muted">
               <button
                 type="button"
-                className="btn btn-primary float-right"
-                disabled={this.props.uploadPdf.inProgress}
+                className="btn btn-primary btn-block"
+                disabled={this.props.bUploadInProgress}
                 onClick={this.handleSubmit}
               >
-                {this.props.uploadPdf.inProgress ? (<FontAwesomeIcon className="fas fa-spinner fa-spin" icon='spinner' />) : 'Submit Document'}
+                {this.props.bUploadInProgress ? (<FontAwesomeIcon className="fas fa-spinner fa-spin" icon='spinner' />) : 'Submit Document'}
               </button>
             </div>
 
@@ -87,36 +95,56 @@ class PdfUpload extends Component {
               UPLOADED PDF FILES
           </div>
             <div className="card-body">
-              {this.props.getPdfList.data ? (
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">File Name</th>
-                      <th scope="col" className="text-center">Number of Pages</th>
-                      <th scope="col" className="text-center">Config</th>
-                      <th scope="col" className="text-center">Remove</th>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th scope="col">File Name</th>
+                    <th scope="col" className="text-center">Number of Pages</th>
+                    <th scope="col" className="text-center">Config</th>
+                    <th scope="col" className="text-center">Form</th>
+                    <th scope="col" className="text-center">Remove</th>
+                  </tr>
+                </thead>
+                <ReactCSSTransitionGroup
+                  component="tbody"
+                  transitionName="example"
+                  transitionEnterTimeout={500}
+                  transitionLeaveTimeout={300}>
+                  {this.props.pdfList.map((pdf, index) => (
+                    <tr key={`pdf-${index}`}>
+                      <td>{pdf.fileName}{pdf.extension}</td>
+                      <td className="text-center">{pdf.numOfPages}</td>
+                      <td className="text-center">
+                        <FontAwesomeIcon
+                          className="fas fa-2x cursor-pointer"
+                          icon='tools'
+                          onClick={() => {
+                            return this.navigateToPath('/configure', { fileName: pdf.fileName });
+                          }}
+                        />
+                      </td>
+                      <td className="text-center">
+                        <FontAwesomeIcon
+                          className="fas fa-2x cursor-pointer"
+                          icon='file-alt'
+                          onClick={() => {
+                            return this.navigateToPath('/form', { fileName: pdf.fileName });
+                          }}
+                        />
+                      </td>
+                      <td className="text-center">
+                        <FontAwesomeIcon
+                          className="fas fa-2x cursor-pointer fa-red"
+                          icon='window-close'
+                          onClick={() => {
+                            return this.props.onRemovePdf(pdf.fileName);
+                          }}
+                        />
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {this.props.getPdfList.data.map((pdf, index) => (
-                      <tr key={`pdf-${index}`}>
-                        <td>{pdf.fileName}{pdf.extension}</td>
-                        <td className="text-center">{pdf.numOfPages}</td>
-                        <td className="text-center"><FontAwesomeIcon className="fas fa-2x cursor-pointer" icon='cog' /></td>
-                        <td className="text-center">
-                          <FontAwesomeIcon
-                            className="fas fa-2x cursor-pointer fa-red"
-                            icon='window-close'
-                            onClick={() => {
-                              return this.props.onRemovePdf(pdf.fileName);
-                            }}
-                          />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              ) : null}
+                  ))}
+                </ReactCSSTransitionGroup>
+              </table>
             </div>
           </div>
 
@@ -128,9 +156,8 @@ class PdfUpload extends Component {
 
 const mapStateToProps = state => {
   return {
-    getPdfList: state.getPdfList,
-    uploadPdf: state.uploadPdf,
-    removePdf: state.removePdf
+    pdfList: _.get(state, ['getPdfList', 'data']) || [],
+    bUploadInProgress: _.get(state, ['uploadPdf', 'inProgress']) || false
   }
 }
 
@@ -140,6 +167,6 @@ const mapActionsToProps = {
   onRemovePdf: removePdf
 };
 
-const connected = connect(mapStateToProps, mapActionsToProps)(PdfUpload);
+const connected = withRouter(connect(mapStateToProps, mapActionsToProps)(PdfUpload));
 
 export { connected as PdfUpload };

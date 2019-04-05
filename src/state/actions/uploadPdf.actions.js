@@ -5,6 +5,7 @@ import {
 } from '../constants';
 
 import { pdf } from 'services';
+import { getPdfList } from './getPdfList.actions';
 
 export function uploadPdf(_name, _document) {
   return async dispatch => {
@@ -13,7 +14,8 @@ export function uploadPdf(_name, _document) {
     const _result = await pdf.upload(_name, _document);
 
     if (_result.success === true) {
-      return dispatch({ type: UPLOAD_PDF_SUCCESS });
+      dispatch({ type: UPLOAD_PDF_SUCCESS });
+      return dispatch(getPdfList());
     }
 
     return dispatch({ type: UPLOAD_PDF_FAIL });

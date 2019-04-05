@@ -2,6 +2,7 @@ const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
+const rimraf = require('rimraf');
 const extractMetadataOfFilePath = require('./extractMetadataOfFilePath');
 
 class TempPdfSaver {
@@ -11,7 +12,7 @@ class TempPdfSaver {
 
   async _removeDir(_folderPath) {
     return new Promise((_accept, _reject) => {
-      fs.rmdir(_folderPath, _error => {
+      rimraf(_folderPath, _error => {
         if (_error) {
           return _reject(_error);
         }

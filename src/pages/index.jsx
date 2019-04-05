@@ -1,2 +1,3 @@
 export * from './PdfUpload';
-export * from './PDFForm';
+export * from './PdfForm';
+export * from './PdfConfig';

@@ -5,6 +5,7 @@ import {
 } from '../constants';
 
 import { pdf } from 'services';
+import { getPdfList } from './getPdfList.actions';
 
 export function removePdf(_fileName) {
   return async dispatch => {
@@ -13,7 +14,8 @@ export function removePdf(_fileName) {
     const _result = await pdf.remove(_fileName);
 
     if (_result.success === true) {
-      return dispatch({ type: REMOVE_PDF_SUCCESS });
+      dispatch({ type: REMOVE_PDF_SUCCESS });
+      return dispatch(getPdfList());
     }
 
     return dispatch({ type: REMOVE_PDF_FAIL });

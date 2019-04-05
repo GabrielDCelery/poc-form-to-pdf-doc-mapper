@@ -3,11 +3,15 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { 
     faSpinner,
     faWindowClose,
-    faCog
+    faCog,
+    faTools,
+    faFileAlt
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
   faSpinner,
   faWindowClose,
-  faCog
+  faCog,
+  faTools,
+  faFileAlt
 );

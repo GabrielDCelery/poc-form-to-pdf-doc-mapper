@@ -54,7 +54,7 @@ router.post('/remove', async (_req, _res) => {
     const _folderPath = path.join(__dirname, '../files');
     const _fileName = _req['body']['fileName'];
     await new TempPdfSaver(_folderPath).removeFile(_fileName);
-    //await new FilesLogger(_folderPath).removePdf(_fileName);
+    await new FilesLogger(_folderPath).removePdf(_fileName);
 
     return _res.send({
       success: true,

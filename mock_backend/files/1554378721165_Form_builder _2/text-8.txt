@@ -1,1 +1,0 @@
-IMPORTANT! Placeholders are only applied to fields that accept a text as an input. Now with these changes we added some placeholder texts too. P a g e  | 8

@@ -12,32 +12,39 @@ const initialState = {
   error: null
 };
 
-export default function getPdfList(state = initialState, { type, payload }) {
+export default function getPdfList(state = initialState, { type, pdfs, errorMessage }) {
   switch (type) {
     case GET_PDF_LIST_START:
       return {
-        inProgress: true,
-        success: false,
-        fail: false,
-        data: null,
-        error: null
-      };
+        ...state,
+        ...{
+          inProgress: true,
+          success: false,
+          fail: false,
+          error: null
+        }
+      }
     case GET_PDF_LIST_SUCCESS:
       return {
-        inProgress: false,
-        success: true,
-        fail: false,
-        data: payload,
-        error: null
-      };
+        ...state,
+        ...{
+          inProgress: false,
+          success: true,
+          fail: false,
+          data: pdfs,
+          error: null
+        }
+      }
     case GET_PDF_LIST_FAIL:
       return {
-        inProgress: false,
-        success: false,
-        fail: true,
-        data: null,
-        error: null
-      };
+        ...state,
+        ...{
+          inProgress: false,
+          success: false,
+          fail: true,
+          error: errorMessage
+        }
+      }
     default:
       return state;
   }
