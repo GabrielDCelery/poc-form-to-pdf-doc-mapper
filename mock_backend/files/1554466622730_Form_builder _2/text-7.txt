@@ -1,1 +1,0 @@
-4.3. CHANGING FIELD PLACEHOLDERS Changing placeholders of fields is almost identical to changing the labels. All you have to  do is use the “placeholder” keyword instead of “label”. First let’s add a placeholder to one of the fields. And then change the placeholder for some of the name fields where we changed the  label. P a g e  | 7

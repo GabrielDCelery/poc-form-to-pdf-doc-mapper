@@ -4,7 +4,6 @@ export class PdfForm extends Component {
   render() {
     return (
       <React.Fragment>
-        PDFForm
       </React.Fragment>
     )
   }

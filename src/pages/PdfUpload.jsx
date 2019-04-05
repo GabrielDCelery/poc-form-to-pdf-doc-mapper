@@ -41,7 +41,7 @@ class PdfUpload extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="container mt-3">
+        <div className="container mt-5">
 
           <div className="card shadow-sm mb-5">
             <div className="card-header text-center">
@@ -119,7 +119,10 @@ class PdfUpload extends Component {
                           className="fas fa-2x cursor-pointer"
                           icon='tools'
                           onClick={() => {
-                            return this.navigateToPath('/configure', { fileName: pdf.fileName });
+                            return this.navigateToPath('/configure', { 
+                              fileName: pdf.fileName,
+                              numOfPages: pdf.numOfPages
+                            });
                           }}
                         />
                       </td>
@@ -128,7 +131,10 @@ class PdfUpload extends Component {
                           className="fas fa-2x cursor-pointer"
                           icon='file-alt'
                           onClick={() => {
-                            return this.navigateToPath('/form', { fileName: pdf.fileName });
+                            return this.navigateToPath('/form', { 
+                              fileName: pdf.fileName,
+                              numOfPages: pdf.numOfPages
+                            });
                           }}
                         />
                       </td>

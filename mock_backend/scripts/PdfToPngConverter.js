@@ -27,7 +27,11 @@ class PdfToPngConverter {
   async process(_filePath) {
     const { fileName, folderPath, extension } = extractMetadataOfFilePath(_filePath);
     const _pngFolderPath = await this._createFolder(folderPath, fileName);
-    const _result = await new PdfExtractor(_pngFolderPath).parse(_filePath);
+    const _result = await new PdfExtractor(_pngFolderPath, { 
+      viewportScale: (_width, _height) => {
+        return 2480 / _width;
+      } 
+    }).parse(_filePath);
 
     return { 
       fileName: `${fileName}.${extension}`,

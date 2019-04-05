@@ -5,7 +5,8 @@ import {
     faWindowClose,
     faCog,
     faTools,
-    faFileAlt
+    faFileAlt,
+    faDotCircle
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -13,5 +14,6 @@ library.add(
   faWindowClose,
   faCog,
   faTools,
-  faFileAlt
+  faFileAlt,
+  faDotCircle
 );

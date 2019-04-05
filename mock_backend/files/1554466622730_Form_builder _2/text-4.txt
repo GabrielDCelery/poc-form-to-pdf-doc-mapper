@@ -1,1 +1,0 @@
-4.0. BASIC FORM EDITING 4.1. ADDING LOGO AND TITLE As a first step let’s enhance our form by adding a logo and a title to it by changing the  configuration. The above configuration will yield the following result: P a g e  | 4

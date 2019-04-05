@@ -1,1 +1,0 @@
-FORM BUILDER QUICK START GUIDE 1. INTRO The form builder is a tool to style and structure your dynamic forms without any HTML,  CSS or Javascript knowledge. It also allows you to set up interactive logic, for example  hiding/showing fields, validation, or something like adding a date picker etc. The following document will provide you a guide on how to use this tool. P a g e  | 1

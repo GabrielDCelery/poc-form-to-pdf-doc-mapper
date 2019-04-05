@@ -72,4 +72,25 @@ router.post('/remove', async (_req, _res) => {
   }
 });
 
+router.get('/page/:fileName/:page', async (_req, _res) => {
+  const _fileName = _req.params.fileName.split('.')[0];
+
+  const _options = {
+    root: path.join(__dirname, '../files', _fileName),
+    dotfiles: 'deny',
+    headers: {
+        'x-timestamp': Date.now(),
+        'x-sent': true
+    }
+  };
+
+  _res.sendFile(`page-${_req.params.page}.png`, _options, function (_error) {
+    if (_error) {
+      console.log(_error);
+    } else {
+      console.log(`Sent: page-${_req.params.page}.png`);
+    }
+  });
+});
+
 module.exports = router;
