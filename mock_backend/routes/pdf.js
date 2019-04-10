@@ -4,6 +4,7 @@ const TempPdfSaver = require('../scripts/TempPdfSaver');
 const PdfToPngConverter = require('../scripts/PdfToPngConverter');
 const path = require('path');
 const FilesLogger = require('../scripts/FilesLogger');
+const fs = require('fs');
 
 router.get('/getlist', async (_req, _res) => {
   try {
@@ -79,6 +80,7 @@ router.get('/page/:fileName/:page', async (_req, _res) => {
     root: path.join(__dirname, '../files', _fileName),
     dotfiles: 'deny',
     headers: {
+        'content-type':'image/png',
         'x-timestamp': Date.now(),
         'x-sent': true
     }
@@ -92,5 +94,20 @@ router.get('/page/:fileName/:page', async (_req, _res) => {
     }
   });
 });
+/*
+router.get('/page/:fileName/:page', async (_req, _res) => {
+  const _fileName = _req.params.fileName.split('.')[0];
+  const stream = fs.createReadStream(path.join(__dirname, '../files', _fileName, `page-${_req.params.page}.png`));
 
+  stream.on('open', () => {
+    _res.set('Content-Type', 'image/png');
+    stream.pipe(_res);
+  });
+
+  stream.on('error', _error => {
+    _res.set('Content-Type', 'text/plain');
+    _res.status(404).end(_error.message);
+});
+});
+*/
 module.exports = router;

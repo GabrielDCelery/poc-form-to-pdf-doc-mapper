@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import './PdfConfig.scss';
-import * as PIXI from "pixi.js";
+import { PdfPixiConfigurer } from 'services';
 
 class PdfConfig extends Component {
   constructor(props) {
@@ -20,24 +20,19 @@ class PdfConfig extends Component {
       ...this.state,
       ...{ activePage: _activePage }
     });
+    this.pdfPixiConfigurer.setActivePage(_activePage);
   }
 
   componentDidMount() {
-    //this.canvasContainerRef.current.offsetWidth
-    const _canvasWidth = this.canvasContainerRef.current.offsetWidth * 0.9;
-    const _canvasHeight = Math.round(_canvasWidth / 2480 * 3508);
-    this.pixiApp = new PIXI.Application({ width: _canvasWidth, height: _canvasHeight, transparent: false });
-    this.canvasContainerRef.current.appendChild(this.pixiApp.view);
-    const baseTexture = PIXI.Texture.fromImage(`${process.env.REACT_APP_BACKEND_API_URL}/pdf/page/1554476344442_OoPdfFormExample.pdf/1`);
-    const texture = new PIXI.Texture(baseTexture);
-    const sprite = new PIXI.Sprite(texture);
-    this.pixiApp.stage.addChild(sprite);
-    setTimeout(() => {
-      const _scale = _canvasWidth / sprite.width;
-
-      sprite.scale.x *= _scale;
-      sprite.scale.y *= _scale;
-    }, 100)
+    const { numOfPages, fileName } = this.props.location.state;
+    const resourceConfigs = new Array(numOfPages).fill(null).map((_value, _index) => {
+      const _page = _index + 1;
+      return {
+        page: _page,
+        url: `${process.env.REACT_APP_BACKEND_API_URL}/pdf/page/${fileName}.pdf/${_page}`
+      };
+    });
+    this.pdfPixiConfigurer = new PdfPixiConfigurer(this.canvasContainerRef, resourceConfigs);
   }
 
   render() {
