@@ -18,16 +18,13 @@ class PixiConfigurerEventBus {
     this.EVENT_RESOURCES_LOADED = 'EVENT_RESOURCES_LOADED';
     this.EVENT_CREATE_INPUT_FIELD = 'EVENT_CREATE_INPUT_FIELD';
     this.registeredFunctions[this.EVENT_RESOURCES_LOADED] = [];
-
-    this.eventEmitter.on(this.EVENT_RESOURCES_LOADED, () => {
-      this.registeredFunctions[this.EVENT_RESOURCES_LOADED].forEach(_registeredFunction => {
-        return _registeredFunction.apply(undefined, arguments);
-      });
-    });
+    this.registeredFunctions[this.EVENT_CREATE_INPUT_FIELD] = [];
   }
 
-  emit(_eventName) {
-    this.eventEmitter.emit(_eventName);
+  emit(_eventName, _arguments = []) {
+    this.registeredFunctions[_eventName].forEach(_registeredFunction => {
+      return _registeredFunction.apply(undefined, _arguments);
+    });
   }
 
   registerObserver(_eventName, _function) {

@@ -41,6 +41,7 @@ export class PdfPixiMenu {
     const self = this;
     menuItem.interactive = true;
     menuItem.on('pointerdown', function (event) {
+      self.eventBus.emit(self.eventBus.EVENT_CREATE_INPUT_FIELD, [self.position]);
       self.close();
     });
     menuItem.on('mouseover', function (event) {

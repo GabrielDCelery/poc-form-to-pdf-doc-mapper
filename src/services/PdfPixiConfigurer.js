@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { PdfPixiMenu } from './PdfPixiMenu';
 import PixiConfigurerEventBus from './PixiConfigurerEventBus';
+import { PdfPixiInputField } from './PdfPixiInputField';
 
 export class PdfPixiConfigurer {
   constructor(_canvasContainer, _resourceConfigs = []) {
@@ -22,6 +23,12 @@ export class PdfPixiConfigurer {
     });
     this._initInteractiveCanvas();
     this._loadResources(_resourceConfigs);
+    this.inputFields = {};
+    this.eventBus.registerObserver(this.eventBus.EVENT_CREATE_INPUT_FIELD, _position => {
+      const inputField = new PdfPixiInputField(this.pixiApp.stage, _position)
+
+      this.inputFields[inputField.getId()] = inputField;
+    });
   }
 
   _initInteractiveCanvas() {
@@ -63,7 +70,7 @@ export class PdfPixiConfigurer {
         const _key = this._createPageKey(_resourceConfig['page']);
         this.sprites[_key] = new PIXI.Sprite(_resources[_key]['texture']);
       });
-      this.eventBus.emit(this.eventBus.emit(this.eventBus.EVENT_RESOURCES_LOADED));
+      this.eventBus.emit(this.eventBus.EVENT_RESOURCES_LOADED);
     });
   }
 
